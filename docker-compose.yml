@@ -1,4 +1,26 @@
 services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: sbtest
+      MYSQL_USER: sbtest
+      MYSQL_PASSWORD: password
+      # Utilisation de la variable d'environnement pour l'authentification
+      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   tidb:
     image: pingcap/tidb:latest
     container_name: tidb
@@ -6,10 +28,11 @@ services:
       - "4000:4000"
     environment:
       - TIDB_ADVERTISE_ADDRESS=tidb
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - mynetwork
+    depends_on:
+      - pd
+      - tikv
 
   pd:
     image: pingcap/pd:latest
@@ -26,6 +49,8 @@ services:
       - --peer-urls=http://0.0.0.0:2380
       - --advertise-client-urls=http://pd:2379
       - --advertise-peer-urls=http://pd:2380
+    networks:
+      - mynetwork
 
   tikv:
     image: pingcap/tikv:latest
@@ -37,17 +62,17 @@ services:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv:20160
       - --data-dir=/var/lib/tikv
+    networks:
+      - mynetwork
+    depends_on:
+      - pd
 
-  mysql:
-    image: mysql:latest
-    container_name: mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mysql-data:
 
   # A decommenter si vous souhaitez utiliser une architecture AMD64
   # sysbench:
