@@ -1,11 +1,4 @@
 services:
-  # hammerdb:   # Not support arm64
-  #   image: tpcorg/hammerdb:latest
-  #   container_name: hammerdb
-  #   stdin_open: true
-  #   tty: true
-  #   platform: linux/arm64
-
   tidb:
     image: pingcap/tidb:latest
     container_name: tidb
@@ -13,10 +6,10 @@ services:
       - "4000:4000"
     environment:
       - TIDB_ADVERTISE_ADDRESS=tidb
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=sbtest
-      - MYSQL_USER=sbtest
-      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
 
   pd:
     image: pingcap/pd:latest
@@ -51,10 +44,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: sbtest
-      MYSQL_USER: sbtest
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   # A decommenter si vous souhaitez utiliser une architecture AMD64
   # sysbench:

@@ -1,18 +1,22 @@
 #!/bin/bash
 #chmod +x init-db.sh a faire si ca ne marche pas (le ./init-db.sh)
 
+# Charger les variables d'environnement
+source .env
+
 # Initialiser MySQL
-docker exec -it mysql mysql -uroot -proot -e "
-CREATE DATABASE IF NOT EXISTS sbtest;
-CREATE USER IF NOT EXISTS 'sbtest'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON sbtest.* TO 'sbtest'@'%';
+docker exec -it mysql mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';
 FLUSH PRIVILEGES;
 "
 
-# Initialiser TiDB
-docker exec -it tidb mysql -uroot -proot -e "
-CREATE DATABASE IF NOT EXISTS sbtest;
-CREATE USER IF NOT EXISTS 'sbtest'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON sbtest.* TO 'sbtest'@'%';
+# Initialiser TiDB depuis le conteneur MySQL
+docker exec -it mysql mysql -h tidb -P 4000 -uroot -p$MYSQL_ROOT_PASSWORD -e "
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 "
