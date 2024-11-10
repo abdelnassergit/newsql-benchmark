@@ -13,6 +13,10 @@ services:
       - "4000:4000"
     environment:
       - TIDB_ADVERTISE_ADDRESS=tidb
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sbtest
+      - MYSQL_USER=sbtest
+      - MYSQL_PASSWORD=password
 
   pd:
     image: pingcap/pd:latest
@@ -48,13 +52,17 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sbtest
+      MYSQL_USER: sbtest
+      MYSQL_PASSWORD: password
 
-  sysbench:
-    image: severalnines/sysbench:latest
-    container_name: sysbench
-    entrypoint: ["tail", "-f", "/dev/null"] # Keep container running
-    depends_on:
-      - mysql
-      - tidb
-    volumes:
-      - ./scripts:/scripts
+  # A decommenter si vous souhaitez utiliser une architecture AMD64
+  # sysbench:
+  #   image: severalnines/sysbench:latest
+  #   container_name: sysbench
+  #   entrypoint: ["tail", "-f", "/dev/null"] # Keep container running
+  #   depends_on:
+  #     - mysql
+  #     - tidb
+  #   volumes:
+  #     - ./scripts:/scripts
