@@ -1,4 +1,5 @@
 #!/bin/bash
+#chmod +x init-db.sh a faire si ca ne marche pas (le ./init-db.sh)
 
 # Initialiser MySQL
 docker exec -it mysql mysql -uroot -proot -e "
