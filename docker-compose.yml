@@ -9,30 +9,11 @@ services:
       MYSQL_DATABASE: sbtest
       MYSQL_USER: sbtest
       MYSQL_PASSWORD: password
-      # Utilisation de la variable d'environnement pour l'authentification
       MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
       - mynetwork
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  tidb:
-    image: pingcap/tidb:latest
-    container_name: tidb
-    ports:
-      - "4000:4000"
-    environment:
-      - TIDB_ADVERTISE_ADDRESS=tidb
-    networks:
-      - mynetwork
-    depends_on:
-      - pd
-      - tikv
 
   pd:
     image: pingcap/pd:latest
@@ -40,8 +21,6 @@ services:
     ports:
       - "2379:2379"
       - "2380:2380"
-    environment:
-      - PD_ADVERTISE_CLIENT_URLS=pd:2379
     command:
       - --name=pd
       - --data-dir=/var/lib/pd
@@ -49,6 +28,8 @@ services:
       - --peer-urls=http://0.0.0.0:2380
       - --advertise-client-urls=http://pd:2379
       - --advertise-peer-urls=http://pd:2380
+    volumes:
+      - pd-data:/var/lib/pd
     networks:
       - mynetwork
 
@@ -62,10 +43,31 @@ services:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv:20160
       - --data-dir=/var/lib/tikv
+    volumes:
+      - tikv-data:/var/lib/tikv
     networks:
       - mynetwork
     depends_on:
       - pd
+
+  tidb:
+    image: pingcap/tidb:latest
+    container_name: tidb
+    ports:
+      - "4000:4000"
+      - "10080:10080"
+    command:
+      - --store=tikv
+      - --path=pd:2379
+      - --advertise-address=tidb
+      - --host=0.0.0.0
+      - --status=10080
+      - --token-limit=1000
+    networks:
+      - mynetwork
+    depends_on:
+      - pd
+      - tikv
 
 networks:
   mynetwork:
@@ -73,6 +75,8 @@ networks:
 
 volumes:
   mysql-data:
+  pd-data:
+  tikv-data:
 
   # A decommenter si vous souhaitez utiliser une architecture AMD64
   # sysbench:
