@@ -1,0 +1,30 @@
+# tidb-config.toml
+[security]
+ssl-ca = ""
+ssl-cert = ""
+ssl-key = ""
+require-secure-transport = false
+auto-tls = false
+allow-insecure = true
+
+[tikv-client]
+max-batch-size = 128
+
+[performance]
+max-procs = 0
+tcp-keep-alive = true
+
+[status]
+status-host = "0.0.0.0"
+metrics-addr = ""
+status-port = 10080
+
+[experimental]
+allow-auto-random = true
+allow-expression-index = true
+
+[log]
+level = "info"
+
+[pessimistic-txn]
+enable = true

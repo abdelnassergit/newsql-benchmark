@@ -21,12 +21,6 @@ Avant d'exécuter le benchmark, préparez les bases de données avec la commande
 sysbench --config-file=config.cfg oltp_read_write prepare
 ```
 
-## Exécution du benchmark avec Sysbench
-
-Pour exécuter le benchmark avec Sysbench, utilisez la commande suivante :
-```bash
-sysbench --config-file=config.cfg oltp_read_write run
-```
 
 
 ## MYSQL prepare sysbench
@@ -48,3 +42,45 @@ docker exec -it sysbench sysbench --db-driver=mysql --mysql-host=mysql --mysql-u
 ```bash
 docker exec -it sysbench sysbench --db-driver=mysql --mysql-host=tidb --mysql-user=sbtest --mysql-password=password --mysql-db=sbtest --threads=4 --time=60 --report-interval=10 oltp_read_write run
 ```
+
+
+
+
+### here
+
+sysbench ./sbscripts/oltp_read_write.lua \
+  --mysql-host=172.19.0.4 \
+  --mysql-port=3306 \
+  --mysql-user=sbtest \
+  --mysql-password=password \
+  --mysql-db=sbtest \
+  --tables=10 \
+  --table-size=1000000 \
+  --threads=10 \
+  --time=60 \
+  run
+
+
+the right :
+
+# CODE
+sysbench \
+  --mysql-host=127.0.0.1 \
+  --mysql-port=3306 \
+  --mysql-user=sbtest \
+  --mysql-password=password \
+  --mysql-db=sbtest \
+  --tables=10 \
+  --table-size=10000 \
+  oltp_common prepare 
+
+# CODE
+sysbench \
+  --mysql-host=127.0.0.1 \
+  --mysql-port=4000 \
+  --mysql-user=sbtest \
+  --mysql-password=password \
+  --mysql-db=sbtest \
+  --tables=10 \
+  --table-size=10000 \
+  oltp_common prepare 

@@ -56,6 +56,9 @@ services:
     ports:
       - "4000:4000"
       - "10080:10080"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_SSL=OFF
     command:
       - --store=tikv
       - --path=pd:2379
@@ -63,6 +66,9 @@ services:
       - --host=0.0.0.0
       - --status=10080
       - --token-limit=1000
+      - --config=/tidb-config.toml
+    volumes:
+      - ./tidb-config.toml:/tidb-config.toml
     networks:
       - mynetwork
     depends_on:
