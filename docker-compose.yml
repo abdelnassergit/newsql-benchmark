@@ -5,13 +5,13 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: sbtest
-      MYSQL_USER: sbtest
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: test
+      MYSQL_USER: user
       MYSQL_PASSWORD: password
-      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
     volumes:
       - mysql-data:/var/lib/mysql
+#      - ./configs/my.cnf:/etc/mysql/my.cnf
     networks:
       - mynetwork
 
@@ -28,8 +28,10 @@ services:
       - --peer-urls=http://0.0.0.0:2380
       - --advertise-client-urls=http://pd:2379
       - --advertise-peer-urls=http://pd:2380
+      # - --config=/tidb-config.toml
     volumes:
       - pd-data:/var/lib/pd
+      # - ./configs/tidb-config.toml:/tidb-config.toml
     networks:
       - mynetwork
 
@@ -58,7 +60,7 @@ services:
       - "10080:10080"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_SSL=OFF
+      # - MYSQL_SSL=OFF
     command:
       - --store=tikv
       - --path=pd:2379
@@ -66,9 +68,6 @@ services:
       - --host=0.0.0.0
       - --status=10080
       - --token-limit=1000
-      - --config=/tidb-config.toml
-    volumes:
-      - ./tidb-config.toml:/tidb-config.toml
     networks:
       - mynetwork
     depends_on:
@@ -84,13 +83,3 @@ volumes:
   pd-data:
   tikv-data:
 
-  # A decommenter si vous souhaitez utiliser une architecture AMD64
-  # sysbench:
-  #   image: severalnines/sysbench:latest
-  #   container_name: sysbench
-  #   entrypoint: ["tail", "-f", "/dev/null"] # Keep container running
-  #   depends_on:
-  #     - mysql
-  #     - tidb
-  #   volumes:
-  #     - ./scripts:/scripts

@@ -1,5 +1,24 @@
 # newsql-benchmark
 
+Ce projet a pour objectif de comparer les performances entre TiDB et MySQL en utilisant des benchmarks.
+
+## Prérequis
+
+- Docker et Docker Compose installés
+- Go-TPC installé (https://github.com/pingcap/go-tpc)
+
+## Installation
+
+1. Clonez le dépôt :
+```
+git clone https://github.com/abdelnassergit/newsql-benchmark.git
+```
+
+2. Accédez au répertoire du projet :
+```
+cd newsql-benchmark
+```
+
 ## Lancer le projet
 
 Pour démarrer les conteneurs Docker, exécutez la commande suivante :
@@ -7,80 +26,34 @@ Pour démarrer les conteneurs Docker, exécutez la commande suivante :
 docker-compose up -d
 ```
 
-## Initialisation des bases de données
-
-Pour initialiser les bases de données MySQL et TiDB, exécutez le script `init-db.sh` :
-```bash
-./init-db.sh
-```
-
 ## Préparation des bases de données
-
-Avant d'exécuter le benchmark, préparez les bases de données avec la commande suivante :
+### TIDB prepare
 ```bash
-sysbench --config-file=config.cfg oltp_read_write prepare
+go-tpc tpcc --warehouses 1 prepare -T 1 -D test -H 127.0.0.1 -P 4000
 ```
-
-
-
-## MYSQL prepare sysbench
+### MYSQL prepare
 ```bash
-docker exec -it sysbench sysbench --db-driver=mysql --mysql-host=mysql --mysql-user=sbtest --mysql-password=password --mysql-db=sbtest --tables=10 --table-size=1000000 oltp_read_write prepare
+go-tpc tpcc --warehouses 1 prepare -T 1 -D test -H 127.0.0.1 -P 3306 -U user -p password
 ```
-
-## TIDB prepare sysbench
+## Exécution des benchmarks
+### Run benchmark TIDB
 ```bash
-docker exec -it sysbench sysbench --db-driver=mysql --mysql-host=tidb --mysql-user=sbtest --mysql-password=password --mysql-db=sbtest --tables=10 --table-size=1000000 oltp_read_write prepare prepare
+go-tpc tpcc --warehouses 1 run -T 1 -D test -H 127.0.0.1 -P 4000
 ```
-
-## Run benchmark MYSQL
+### Run benchmark MYSQL
 ```bash
-docker exec -it sysbench sysbench --db-driver=mysql --mysql-host=mysql --mysql-user=sbtest --mysql-password=password --mysql-db=sbtest --threads=4 --time=60 --report-interval=10 oltp_read_write run
+go-tpc tpcc --warehouses 1 run -T 1 -D test -H 127.0.0.1 -P 3306 -U user -p password
 ```
+## Explication des paramètres
 
-## Run benchmark TIDB
+- `--warehouses`: Ce paramètre spécifie le nombre d'entrepôts à utiliser pour le benchmark. Un entrepôt représente une unité de charge de travail.
+- `-T`: Ce paramètre spécifie le nombre de threads à utiliser pour le benchmark. Plus de threads peuvent augmenter la charge sur la base de données.
+
+## Résultats
+Après avoir exécuté les benchmarks, vous pouvez analyser les résultats pour comparer les performances entre TiDB et MySQL.
+
+## Nettoyage
+Pour arrêter et supprimer les conteneurs Docker, exécutez la commande suivante :
 ```bash
-docker exec -it sysbench sysbench --db-driver=mysql --mysql-host=tidb --mysql-user=sbtest --mysql-password=password --mysql-db=sbtest --threads=4 --time=60 --report-interval=10 oltp_read_write run
+docker-compose down -v
 ```
-
-
-
-
-### here
-
-sysbench ./sbscripts/oltp_read_write.lua \
-  --mysql-host=172.19.0.4 \
-  --mysql-port=3306 \
-  --mysql-user=sbtest \
-  --mysql-password=password \
-  --mysql-db=sbtest \
-  --tables=10 \
-  --table-size=1000000 \
-  --threads=10 \
-  --time=60 \
-  run
-
-
-the right :
-
-# CODE
-sysbench \
-  --mysql-host=127.0.0.1 \
-  --mysql-port=3306 \
-  --mysql-user=sbtest \
-  --mysql-password=password \
-  --mysql-db=sbtest \
-  --tables=10 \
-  --table-size=10000 \
-  oltp_common prepare 
-
-# CODE
-sysbench \
-  --mysql-host=127.0.0.1 \
-  --mysql-port=4000 \
-  --mysql-user=sbtest \
-  --mysql-password=password \
-  --mysql-db=sbtest \
-  --tables=10 \
-  --table-size=10000 \
-  oltp_common prepare 
