@@ -23,7 +23,7 @@ cd newsql-benchmark
 
 Pour démarrer les conteneurs Docker, exécutez la commande suivante :
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Préparation des bases de données
@@ -55,5 +55,5 @@ Après avoir exécuté les benchmarks, vous pouvez analyser les résultats pour 
 ## Nettoyage
 Pour arrêter et supprimer les conteneurs Docker, exécutez la commande suivante :
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
