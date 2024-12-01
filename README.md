@@ -58,14 +58,12 @@ go-tpc tpch --sf=1 prepare -D test -H 127.0.0.1 -P 3306 -U user -p password
 ## Exécution des benchmarks TPC-H
 ### Run benchmark TIDB
 ```bash
-go-tpc tpch --sf=1 run -T 1 --time 0h5m00s -D test -H 127.0.0.1 -P 4000 
+go-tpc tpch --sf=1 run -T 1 --time 0h3m00s -D test -H 127.0.0.1 -P 4000 
 ```
 ### Run benchmark MYSQL
-```
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <conteneur-id de mysql>
-```
+Pour lancer la commande suivant veuillez consulter le repertoire tpch_fix : 
 ```bash
-go-tpc tpch --sf=1 run -T 1 --time 0h0m20s -D test -H 127.0.0.1 -P 3306 -U root -p rootpassword
+./bin/go-tpc tpch --sf=1 run -T 1 --time 0h3m00s -D test -H 127.0.0.1 -P 3306 -U root -p rootpassword
 ```
 ## Explication des paramètres
 
@@ -80,5 +78,3 @@ Pour arrêter et supprimer les conteneurs Docker, exécutez la commande suivante
 ```bash
 docker compose down -v
 ```
-
-go-tpc tpch --sf=1 -P 3306 -U root -p rootpassword run 
