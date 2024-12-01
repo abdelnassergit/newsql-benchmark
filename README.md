@@ -61,7 +61,7 @@ go-tpc tpch --sf=1 prepare -D test -H 127.0.0.1 -P 3306 -U user -p password
 go-tpc tpch --sf=1 run -T 1 --time 0h3m00s -D test -H 127.0.0.1 -P 4000 
 ```
 ### Run benchmark MYSQL
-Pour lancer la commande suivant veuillez consulter le repertoire tpch_fix : 
+Pour lancer la commande suivant veuillez consulter le repertoire `tpch_fix` : 
 ```bash
 ./bin/go-tpc tpch --sf=1 run -T 1 --time 0h3m00s -D test -H 127.0.0.1 -P 3306 -U root -p rootpassword
 ```
