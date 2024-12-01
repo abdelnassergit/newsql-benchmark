@@ -26,23 +26,44 @@ Pour démarrer les conteneurs Docker, exécutez la commande suivante :
 docker compose up -d
 ```
 
-## Préparation des bases de données
+## Préparation des bases de données pour le test TPC-C
 ### TIDB prepare
 ```bash
 go-tpc tpcc --warehouses 1 prepare -T 1 -D test -H 127.0.0.1 -P 4000
 ```
 ### MYSQL prepare
 ```bash
-go-tpc tpcc --warehouses 1 prepare -T 1 -D test -H 127.0.0.1 -P 3306 -U user -p password
+go-tpc tpcc --warehouses 1 prepare -T 1 -D test -H 127.0.0.1 -P 3306 -U root -p root
 ```
-## Exécution des benchmarks
+## Exécution des benchmarks TPC-C
 ### Run benchmark TIDB
 ```bash
-go-tpc tpcc --warehouses 1 run -T 1 -D test -H 127.0.0.1 -P 4000
+go-tpc tpcc --warehouses 1 run -T 1 --time 0h5m00s -D test -H 127.0.0.1 -P 4000 > ./results/results_tpc-c_tidb.txt
 ```
 ### Run benchmark MYSQL
 ```bash
-go-tpc tpcc --warehouses 1 run -T 1 -D test -H 127.0.0.1 -P 3306 -U user -p password
+go-tpc tpcc --warehouses 1 run -T 1 --time 0h5m00s -D test -H 127.0.0.1 -P 3306 -U root -p root > ./results/results_tpc-c_mysql.txt
+```
+
+## Préparation des bases de données pour le test TPC-H
+### TIDB prepare
+```bash
+go-tpc tpch --sf=1 prepare -D test -H 127.0.0.1 -P 4000
+```
+### MYSQL prepare
+```bash
+go-tpc tpch --sf=1 prepare -D test -H 127.0.0.1 -P 3306 -U user -p password
+```
+
+## Exécution des benchmarks TPC-H
+### Run benchmark TIDB
+```bash
+go-tpc tpch --sf=1 run -T 1 --time 0h3m00s -D test -H 127.0.0.1 -P 4000 
+```
+### Run benchmark MYSQL
+Pour lancer la commande suivant veuillez consulter le repertoire `tpch_fix` : 
+```bash
+./bin/go-tpc tpch --sf=1 run -T 1 --time 0h3m00s -D test -H 127.0.0.1 -P 3306 -U root -p rootpassword
 ```
 ## Explication des paramètres
 
