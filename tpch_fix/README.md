@@ -2,7 +2,7 @@
 
 ## Problème Initial
 
-La fonctionnalité go-tpc a été conçu principalement pour TiDB (une base de données compatible MySQL avec des fonctionnalités supplémentaires), ce qui causait plusieurs problèmes :
+La fonctionnalité go-tpc tpch run a été conçu principalement pour TiDB (une base de données compatible MySQL avec des fonctionnalités supplémentaires), ce qui causait plusieurs problèmes :
 
 * Tentative d'utilisation de variables système spécifiques à TiDB (tidb_*) sur une installation MySQL standard
 * Ces variables n'existent pas dans MySQL standard
