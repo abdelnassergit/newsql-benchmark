@@ -58,42 +58,37 @@
 [Current] Q14: 0.30s
 [Current] Q15: 1.04s
 [Current] Q16: 0.37s
-[Current] Q17: 2.25s
-[Current] Q18: 2.18s
-[Current] Q19: 0.77s
-[Current] Q20: 0.77s
-[Current] Q1: 0.70s
-[Current] Q2: 0.37s
-[Current] Q21: 1.58s
-[Current] Q22: 0.30s
-[Current] Q3: 0.57s
-[Current] Q4: 0.23s
-[Current] Q5: 2.32s
-[Current] Q6: 0.37s
-[Current] Q7: 0.84s
-[Current] Q8: 1.38s
-[Current] Q9: 1.44s
-[Current] Q10: 0.37s
-[Current] Q11: 0.10s
-[Current] Q12: 0.84s
-[Current] Q13: 0.50s
-[Current] Q14: 0.30s
-[Current] Q15: 0.97s
-[Current] Q16: 0.37s
 [Current] Q17: 2.18s
-[Current] Q18: 2.11s
-[Current] Q19: 0.64s
-[Current] Q20: 0.77s
-[Current] Q1: 0.70s
-[Current] Q2: 0.37s
-[Current] Q21: 1.51s
-[Current] Q22: 0.23s
-[Current] Q3: 0.57s
-[Current] Q4: 0.23s
-[Current] Q5: 2.58s
-[Current] Q6: 0.44s
-[Current] Q7: 1.51s
-[Current] Q8: 1.58s
+[Current] Q18: 2.25s
+[Current] Q19: 1.38s
+
+Got signal [terminated] to exit.
+[2024-11-30 21:37:00] execute run failed, err dial tcp 127.0.0.1:4000: connect: connection refused
+execute run failed, err dial tcp 127.0.0.1:4000: connect: connection refused
+Finished
+[Summary] Q1: 2.40s
+[Summary] Q10: 0.68s
+[Summary] Q11: 0.48s
+[Summary] Q12: 1.64s
+[Summary] Q13: 1.08s
+[Summary] Q14: 0.59s
+[Summary] Q15: 1.29s
+[Summary] Q16: 0.44s
+[Summary] Q17: 2.32s
+[Summary] Q18: 2.85s
+[Summary] Q19: 1.24s
+[Summary] Q2: 1.17s
+[Summary] Q20: 400.51s
+[Summary] Q21: 1.68s
+[Summary] Q22: 0.50s
+[Summary] Q3: 1.47s
+[Summary] Q4: 0.39s
+[Summary] Q5: 3.17s
+[Summary] Q6: 0.53s
+[Summary] Q7: 0.97s
+[Summary] Q8: 1.33s
+[Summary] Q9: 1.91s
+s
 [Current] Q10: 0.44s
 [Current] Q11: 0.17s
 [Current] Q12: 0.84s
