@@ -1,0 +1,16 @@
+[Current] Q1: 14.73s
+[Current] Q2: 0.84s
+[Current] Q3: 33.25s
+[Current] Q4: 11.51s
+[Current] Q5: 27.21s
+[Current] Q6: 3.66s
+[Current] Q7: 28.62s
+[Current] Q8: 78.35s
+[Current] Q9: 77.68s
+[Current] Q10: 21.11s
+[Current] Q11: 9.29s
+[Current] Q12: 5.67s
+[Current] Q13: 2.79s
+[Current] Q14: 10.84s
+[Current] Q15: 7.89s
+[Current] Q16: 6.68s
