@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS lineitem
+DROP TABLE IF EXISTS partsupp
+DROP TABLE IF EXISTS supplier
+DROP TABLE IF EXISTS part
+DROP TABLE IF EXISTS orders
+DROP TABLE IF EXISTS customer
+DROP TABLE IF EXISTS region
+DROP TABLE IF EXISTS nation
+creating nation
+creating region
+creating part
+creating supplier
+creating partsupp
+creating customer
+creating orders
+creating lineitem
+generating nation table
+generate nation table done
+generating region table
+generate region table done
+generating customers table
+generate customers table done
+generating suppliers table
+generate suppliers table done
+generating part/partsupplier tables
+generate part/partsupplier tables done
+generating orders/lineitem tables
+generate orders/lineitem tables done
+Finished
