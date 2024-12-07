@@ -14,3 +14,23 @@
 [Current] Q14: 10.84s
 [Current] Q15: 7.89s
 [Current] Q16: 6.68s
+
+Got signal [terminated] to exit.
+Finished
+[Summary] Q1: 14.73s
+[Summary] Q10: 21.11s
+[Summary] Q11: 9.29s
+[Summary] Q12: 5.67s
+[Summary] Q13: 2.79s
+[Summary] Q14: 10.84s
+[Summary] Q15: 7.89s
+[Summary] Q16: 6.68s
+[Summary] Q17: 1199.91s
+[Summary] Q2: 0.84s
+[Summary] Q3: 33.25s
+[Summary] Q4: 11.51s
+[Summary] Q5: 27.21s
+[Summary] Q6: 3.66s
+[Summary] Q7: 28.62s
+[Summary] Q8: 78.35s
+[Summary] Q9: 77.68s
