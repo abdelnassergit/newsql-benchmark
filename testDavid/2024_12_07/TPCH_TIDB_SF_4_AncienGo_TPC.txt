@@ -1,0 +1,38 @@
+[Current] Q1: 11.91s
+[Current] Q2: 12.58s
+[Current] Q3: 15.47s
+[Current] Q4: 5.07s
+[Current] Q5: 29.19s
+[Current] Q6: 6.54s
+[Current] Q7: 10.74s
+[Current] Q8: 17.28s
+[Current] Q9: 34.73s
+[Current] Q10: 17.82s
+[Current] Q11: 2.45s
+[Current] Q12: 21.17s
+[Current] Q13: 7.82s
+[Current] Q14: 9.09s
+[Current] Q15: 14.23s
+[Current] Q16: 2.28s
+[2024-12-07 14:37:02] execute run failed, err execute q17 failed Error 1105 (HY000): Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=2508195972]
+execute run failed, err execute q17 failed Error 1105 (HY000): Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=2508195972]
+[2024-12-07 14:37:02] execute run failed, err execute q17 failed Error 1105 (HY000): Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=2508195970]
+execute run failed, err execute q17 failed Error 1105 (HY000): Your query has been cancelled due to exceeding the allowed memory limit for a single SQL query. Please try narrowing your query scope or increase the tidb_mem_quota_query limit and try again.[conn=2508195970]
+Finished
+[Summary] Q1: 11.91s
+[Summary] Q10: 17.82s
+[Summary] Q11: 2.45s
+[Summary] Q12: 21.17s
+[Summary] Q13: 7.82s
+[Summary] Q14: 9.09s
+[Summary] Q15: 14.23s
+[Summary] Q16: 2.28s
+[Summary] Q17_ERR: 15.67s
+[Summary] Q2: 12.58s
+[Summary] Q3: 15.47s
+[Summary] Q4: 5.07s
+[Summary] Q5: 29.19s
+[Summary] Q6: 6.54s
+[Summary] Q7: 10.74s
+[Summary] Q8: 17.28s
+[Summary] Q9: 34.59s
